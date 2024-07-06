@@ -1,12 +1,14 @@
 package com.alura.challenge.literalura.principal;
 
 import com.alura.challenge.literalura.model.DatosLibros;
+import com.alura.challenge.literalura.model.Libros;
 import com.alura.challenge.literalura.repository.LibrosRepository;
 import com.alura.challenge.literalura.service.ConsumoAPI;
 import com.alura.challenge.literalura.service.ConvierteDatos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Principal {
@@ -17,9 +19,18 @@ public class Principal {
     private ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosLibros> datosLibros = new ArrayList<>();
     private LibrosRepository repositorio;
+    private List<Libros> libros;
+    private Optional<Libros> librosBuscados;
+
+    public Principal(LibrosRepository repositoriy) {
+        this.repositorio = repositoriy;
+    }
 
 
-    public String menu = """
+    public void muestraElMenu() {
+        var opcion = -1;
+        while (opcion !=0) {
+            var menu = """
             ____________________________________________________
             1- Buscar libro por título
             2- Listar libros registrados
@@ -30,4 +41,31 @@ public class Principal {
             ____________________________________________________
             
             """;
+            System.out.printf(menu);
+            opcion = teclado.nextInt();
+            teclado.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    buscarLibroPorTitulo();
+                    break;
+                case 2:
+                    listarLibrosRegistrados();
+                    break;
+                case 3:
+                    listarAutoresRegistrados();
+                case 4:
+                    ListarAutoresVivos();
+                    break;
+                case 5:
+                    listarLibrosPorIdioma();
+                    break;
+                case 0:
+                    System.out.println("Cerrando la aplicación...");
+                default:
+                    System.out.println("Opcion inválida");
+            }
+        }
+        }
+
 }
