@@ -49,23 +49,36 @@ public class Principal {
                 case 1:
                     buscarLibroPorTitulo();
                     break;
-                case 2:
-                    listarLibrosRegistrados();
-                    break;
-                case 3:
-                    listarAutoresRegistrados();
-                case 4:
-                    ListarAutoresVivos();
-                    break;
-                case 5:
-                    listarLibrosPorIdioma();
-                    break;
+              //  case 2:
+                //    listarLibrosRegistrados();
+                  //  break;
+        //        case 3:
+          //          listarAutoresRegistrados();
+            //    case 4:
+              //      ListarAutoresVivos();
+                //    break;
+ //               case 5:
+   //                 listarLibrosPorIdioma();
+     //               break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                 default:
                     System.out.println("Opcion inválida");
             }
         }
+        }
+
+        public void buscarLibroPorTitulo() {
+            System.out.println("Escribe el nombre del libro que deseas buscar");
+            var nombreLibro = teclado.nextLine();
+            librosBuscados = repositorio.findByTituloContainsIgnoreCase(nombreLibro);
+
+            if (librosBuscados.isPresent()) {
+                System.out.println("El libro buscado es: " + librosBuscados.get());
+            } else {
+                System.out.println("Libro no encontrado.");
+            }
+
         }
 
 }
