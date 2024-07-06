@@ -1,7 +1,12 @@
 package com.alura.challenge.literalura.principal;
 
+import com.alura.challenge.literalura.model.DatosLibros;
+import com.alura.challenge.literalura.repository.LibrosRepository;
 import com.alura.challenge.literalura.service.ConsumoAPI;
+import com.alura.challenge.literalura.service.ConvierteDatos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -9,7 +14,10 @@ public class Principal {
     private Scanner teclado = new Scanner(System.in);
     private ConsumoAPI consumoAPI = new ConsumoAPI();
     private final String URL_BASE = "gutendex.com/books";
-    private
+    private ConvierteDatos conversor = new ConvierteDatos();
+    private List<DatosLibros> datosLibros = new ArrayList<>();
+    private LibrosRepository repositorio;
+
 
     public String menu = """
             ____________________________________________________
