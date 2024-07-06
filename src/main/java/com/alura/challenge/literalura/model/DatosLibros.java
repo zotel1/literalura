@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record DatosLibros(
@@ -16,6 +17,7 @@ public record DatosLibros(
         @JsonAlias("languages") List <Idiomas> idiomas,
         @JsonAlias("copyright") boolean copyright,
         @JsonAlias("media_type") String mediaType,
+        Map<String, Format> Formats,
         @JsonAlias("download_count") int downloadCount
         ) {
 }
