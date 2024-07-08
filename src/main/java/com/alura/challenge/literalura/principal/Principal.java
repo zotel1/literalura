@@ -1,7 +1,7 @@
 package com.alura.challenge.literalura.principal;
 
-import com.alura.challenge.literalura.model.DatosLibros;
-import com.alura.challenge.literalura.model.Libros;
+import com.alura.challenge.literalura.model.*;
+import com.alura.challenge.literalura.repository.AutorRepository;
 import com.alura.challenge.literalura.repository.LibrosRepository;
 import com.alura.challenge.literalura.service.ConsumoAPI;
 import com.alura.challenge.literalura.service.ConvierteDatos;
@@ -15,15 +15,18 @@ public class Principal {
 
     private Scanner teclado = new Scanner(System.in);
     private ConsumoAPI consumoAPI = new ConsumoAPI();
-    private final String URL_BASE = "gutendex.com/books";
+    private final String URL_BASE = "https://gutendex.com/books/?search=";
     private ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosLibros> datosLibros = new ArrayList<>();
-    private LibrosRepository repositorio;
+    private LibrosRepository librosRepository;
+    private AutorRepository autorRepository;
     private List<Libros> libros;
     private Optional<Libros> librosBuscados;
+    private Autor datosAutor;
 
-    public Principal(LibrosRepository repositoriy) {
-        this.repositorio = repositoriy;
+    public Principal(LibrosRepository librosRepository, AutorRepository autorRepository) {
+        this.librosRepository = librosRepository;
+        this.autorRepository = autorRepository;
     }
 
 
@@ -62,23 +65,29 @@ public class Principal {
      //               break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
+                    break;
                 default:
                     System.out.println("Opcion inválida");
             }
         }
         }
 
-        public void buscarLibroPorTitulo() {
-            System.out.println("Escribe el nombre del libro que deseas buscar");
-            var nombreLibro = teclado.nextLine();
-            librosBuscados = repositorio.findByTituloContainsIgnoreCase(nombreLibro);
-
-            if (librosBuscados.isPresent()) {
-                System.out.println("El libro buscado es: " + librosBuscados.get());
-            } else {
-                System.out.println("Libro no encontrado.");
-            }
-
+        private DatosLibros getDatosLibros() {
+            System.out.println("Ingrese el nombre del libro que quiere buscar: ");
+            String titulo = teclado.nextLine();
+            String json = consumoAPI.obtenerDatos((URL_BASE + titulo.toLowerCase().replace(" ", "+")));
+            return conversor.obtenerDatos(json, DatosLibros.class);
         }
 
-}
+    private void buscarLibroPorTitulo() {
+        DatosLibros datosLibros = getDatosLibros();
+        
+        Libros libros = new Libros(datosLibros, datosAutor);
+        librosRepository.save(libros);
+        // datosSeries.add(datos);
+        System.out.println(datosLibros);
+    }
+
+    }
+
+
