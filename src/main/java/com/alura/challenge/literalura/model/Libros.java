@@ -1,49 +1,32 @@
 package com.alura.challenge.literalura.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "libros")
 public class Libros {
-    private Integer id;
+
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true, nullable = false)
     private String titulo;
-    private String autores;
-    private String traducir;
+    private String idiomas;
+    private double dowloadsCount;
+
+    @ManyToMany
+    private Autor autor;
+
     private String asignaturas;
 
-    public Integer getId() {
-        return id;
+
+    public Libros() {}
+
+    public Libros(DatosLibros datosLibros, Autor dataAutor) {
+        this.titulo = datosLibros.titulo();
+        this.autor = dataAutor;
+        this.idiomas = datosLibros.idiomas().get(0);
+        this.dowloadsCount = datosLibros.downloadCount();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getAutores() {
-        return autores;
-    }
-
-    public void setAutores(String autores) {
-        this.autores = autores;
-    }
-
-    public String getTraducir() {
-        return traducir;
-    }
-
-    public void setTraducir(String traducir) {
-        this.traducir = traducir;
-    }
-
-    public String getAsignaturas() {
-        return asignaturas;
-    }
-
-    public void setAsignaturas(String asignaturas) {
-        this.asignaturas = asignaturas;
-    }
 }

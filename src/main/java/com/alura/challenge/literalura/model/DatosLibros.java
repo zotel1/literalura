@@ -10,11 +10,11 @@ import java.util.Map;
 public record DatosLibros(
         @JsonAlias("id") Integer id,
         @JsonAlias("title") String titulo,
-        @JsonAlias("authors") List<Autores> autores,
-        @JsonAlias("translators") List<Traducir> traducir,
+        @JsonAlias("authors") List<Autor> autor,
+
         @JsonAlias("subjects") List <Asignaturas> asignaturas,
         @JsonAlias("bookshelves") List <Estanteria> estanteria,
-        @JsonAlias("languages") List <Idiomas> idiomas,
+        @JsonAlias("languages") List <String> idiomas,
         @JsonAlias("copyright") boolean copyright,
         @JsonAlias("media_type") String mediaType,
         Map<String, Format> Formats,
