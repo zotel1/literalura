@@ -17,9 +17,6 @@ public class Libros {
     @ManyToMany
     private Autor autor;
 
-    private String asignaturas;
-
-
     public Libros() {}
 
     public Libros(DatosLibros datosLibros, Autor dataAutor) {
@@ -29,4 +26,45 @@ public class Libros {
         this.dowloadsCount = datosLibros.downloadCount();
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getIdiomas() {
+        return idiomas;
+    }
+
+    public void setIdiomas(String idiomas) {
+        this.idiomas = idiomas;
+    }
+
+    public double getDowloadsCount() {
+        return dowloadsCount;
+    }
+
+    public void setDowloadsCount(double dowloadsCount) {
+        this.dowloadsCount = dowloadsCount;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
+    @Override
+    public String toString() {
+        return "Libros{" +
+                "titulo='" + titulo + '\'' +
+                ", idiomas='" + idiomas + '\'' +
+                ", dowloadsCount=" + dowloadsCount +
+                ", autor=" + autor +
+                '}';
+    }
 }
