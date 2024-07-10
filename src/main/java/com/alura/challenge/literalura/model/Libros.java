@@ -2,6 +2,8 @@ package com.alura.challenge.literalura.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "libros")
 public class Libros {
@@ -13,7 +15,7 @@ public class Libros {
     @Column(unique = true, nullable = false)
     private String titulo;
     private String idiomas;
-    private double dowloadsCount;
+    private double cantidadDescargas;
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
@@ -24,12 +26,23 @@ public class Libros {
 
 
     public Libros(DatosLibros datosLibros, Autor dataAutor) {
+        // Verificación del título
+        String tituloLibro = datosLibros.titulo();
+        if (tituloLibro == null || tituloLibro.isEmpty()) {
+            throw new IllegalArgumentException("El título del libro no puede estar vacío.");
+            // Puedes manejar esto según tu lógica de negocio
+            // Por ejemplo, asignando un valor predeterminado o lanzando una excepción personalizada
+        }
         this.titulo = datosLibros.titulo();
         this.autor = dataAutor;
-        this.idiomas = datosLibros.idiomas().get(0);
-        this.dowloadsCount = datosLibros.downloadCount();
+        List<String> idiomasList = datosLibros.idiomas();
+        if (idiomasList != null && !idiomasList.isEmpty()) {
+            this.idiomas = idiomasList.get(0);
+        } else {
+            this.idiomas = ""; // O establece un valor predeterminado apropiado
+        }
+        this.cantidadDescargas = datosLibros.cantidadDescargas();
     }
-
 
     public String getTitulo() {
         return titulo;
@@ -47,12 +60,12 @@ public class Libros {
         this.idiomas = idiomas;
     }
 
-    public double getDowloadsCount() {
-        return dowloadsCount;
+    public double getCantidadDescargas() {
+        return cantidadDescargas;
     }
 
-    public void setDowloadsCount(double dowloadsCount) {
-        this.dowloadsCount = dowloadsCount;
+    public void setCantidadDescargas(double cantidadDescargas) {
+        this.cantidadDescargas = cantidadDescargas;
     }
 
     public Autor getAutor() {
@@ -68,7 +81,7 @@ public class Libros {
         return "Libros{" +
                 "titulo='" + titulo + '\'' +
                 ", idiomas='" + idiomas + '\'' +
-                ", dowloadsCount=" + dowloadsCount +
+                ", cantidadDescargas=" + cantidadDescargas +
                 ", autor=" + autor +
                 '}';
     }

@@ -52,17 +52,17 @@ public class Principal {
                 case 1:
                     buscarLibroPorTitulo();
                     break;
-              //  case 2:
-                //    listarLibrosRegistrados();
-                  //  break;
-        //        case 3:
-          //          listarAutoresRegistrados();
-            //    case 4:
-              //      ListarAutoresVivos();
-                //    break;
- //               case 5:
-   //                 listarLibrosPorIdioma();
-     //               break;
+                case 2:
+                    listarLibrosRegistrados();
+                    break;
+                case 3:
+                    listarAutoresRegistrados();
+                case 4:
+                    ListarAutoresVivos();
+                    break;
+                case 5:
+                    listarLibrosPorIdioma();
+                    break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;
@@ -77,6 +77,8 @@ public class Principal {
             String titulo = teclado.nextLine();
             String json = consumoAPI.obtenerDatos((URL_BASE + titulo.toLowerCase().replace(" ", "+")));
             return conversor.obtenerDatos(json, DatosLibros.class);
+
+            if (datos)
         }
 
     private void buscarLibroPorTitulo() {
