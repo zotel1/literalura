@@ -36,10 +36,9 @@ public class Autor {
 
     @Override
     public String toString() {
-        return "Autor{" +
-                "nombre='" + nombre + '\'' +
-                ", vive=" + vive +
-                ", noVive=" + noVive +
+        return "Autor{" + nombre + '\'' +
+                ", El autor nacio en: " + vive +
+                ", El autor fallecío en: " + noVive +
                 ", libros=" + libros +
                 '}';
     }
