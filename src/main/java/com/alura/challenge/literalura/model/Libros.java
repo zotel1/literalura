@@ -3,6 +3,7 @@ package com.alura.challenge.literalura.model;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "libros")
@@ -12,36 +13,39 @@ public class Libros {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String titulo;
-    private String idiomas;
-    private double cantidadDescargas;
 
-    @ManyToOne
-    @JoinColumn(name = "autor_id")
-    private Autor autor;
+    @OneToMany(mappedBy = "libros", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Autor> autores;
+
+    private Double cantidadDescargas;
+
+    @ElementCollection(targetClass = Lenguajes.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "idiomas", joinColumns = @JoinColumn(name = "libro_id"))
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "idiomas")
+    private Set<Lenguajes> idiomas;
 
     public Libros() {}
 
 
 
-    public Libros(DatosLibros datosLibros, Autor dataAutor) {
-        // Verificación del título
-        String tituloLibro = datosLibros.titulo();
-        if (tituloLibro == null || tituloLibro.isEmpty()) {
-            throw new IllegalArgumentException("El título del libro no puede estar vacío.");
-            // Puedes manejar esto según tu lógica de negocio
-            // Por ejemplo, asignando un valor predeterminado o lanzando una excepción personalizada
-        }
-        this.titulo = datosLibros.titulo();
-        this.autor = dataAutor;
-        List<String> idiomasList = datosLibros.idiomas();
-        if (idiomasList != null && !idiomasList.isEmpty()) {
-            this.idiomas = idiomasList.get(0);
-        } else {
-            this.idiomas = ""; // O establece un valor predeterminado apropiado
-        }
-        this.cantidadDescargas = datosLibros.cantidadDescargas();
+    public Libros(String titulo, Set<Autor> autores, Double cantidadDescargas, Set<Lenguajes> idiomas) {
+        this.titulo = titulo;
+        this.autores = autores;
+        this.cantidadDescargas = cantidadDescargas;
+        this.idiomas = idiomas;
+
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -52,37 +56,37 @@ public class Libros {
         this.titulo = titulo;
     }
 
-    public String getIdiomas() {
-        return idiomas;
+    public Set<Autor> getAutores() {
+        return autores;
     }
 
-    public void setIdiomas(String idiomas) {
-        this.idiomas = idiomas;
+    public void setAutores(Set<Autor> autores) {
+        this.autores = autores;
     }
 
-    public double getCantidadDescargas() {
+    public Double getCantidadDescargas() {
         return cantidadDescargas;
     }
 
-    public void setCantidadDescargas(double cantidadDescargas) {
+    public void setCantidadDescargas(Double cantidadDescargas) {
         this.cantidadDescargas = cantidadDescargas;
     }
 
-    public Autor getAutor() {
-        return autor;
+    public Set<Lenguajes> getIdiomas() {
+        return idiomas;
     }
 
-    public void setAutor(Autor autor) {
-        this.autor = autor;
+    public void setIdiomas(Set<Lenguajes> idiomas) {
+        this.idiomas = idiomas;
     }
 
     @Override
     public String toString() {
         return "Libros{" +
                 "titulo='" + titulo + '\'' +
-                ", idiomas='" + idiomas + '\'' +
+                ", autores=" + autores +
                 ", cantidadDescargas=" + cantidadDescargas +
-                ", autor=" + autor +
+                ", idiomas=" + idiomas +
                 '}';
     }
 }

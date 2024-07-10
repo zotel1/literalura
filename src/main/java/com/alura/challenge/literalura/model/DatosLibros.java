@@ -8,6 +8,7 @@ import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record DatosLibros(
+        @JsonAlias("id") Long id,
         @JsonAlias("title") String titulo,
         @JsonAlias("authors") List<DatosAutor> autor,
         @JsonAlias("languages") List <String> idiomas,
