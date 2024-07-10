@@ -16,12 +16,12 @@ public class Libros {
     @Column(unique = true)
     private String titulo;
 
-    @OneToMany(mappedBy = "libros", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "libros", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Autor> autores;
 
     private Double cantidadDescargas;
 
-    @ElementCollection(targetClass = Lenguajes.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Lenguajes.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "idiomas", joinColumns = @JoinColumn(name = "libro_id"))
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "idiomas")

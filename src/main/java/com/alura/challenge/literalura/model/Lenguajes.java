@@ -55,7 +55,6 @@ public enum Lenguajes {
     FEROES("fo"),
     FIJIANO("fj"),
     FINES("fi"),
-    FRANCES("fr"),
     FRISON("fy"),
     FULA("ff"),
     GAELICO("gd"),
@@ -76,7 +75,6 @@ public enum Lenguajes {
     IDO("io"),
     IGBO("ig"),
     INDONESIO("id"),
-    INGLES("en"),
     INTERLINGUA("ia"),
     INUKTITUT("iu"),
     INUPIAQ("ik"),
@@ -135,7 +133,6 @@ public enum Lenguajes {
     PASTU("ps"),
     PERSA("fa"),
     POLACO("pl"),
-    PORTUGUES("pt"),
     QUECHUA("qu"),
     RETORROMANICO("rm"),
     RUANDES("rw"),
@@ -185,10 +182,10 @@ public enum Lenguajes {
     YIDISH("yi"),
     YORUBA("yo"),
     ZULU("zu"),
-    ES("es", "Español"),
-    EN("en", "Inglés"),
-    FR("fr", "Francés"),
-    PT("pt", "Portugués");
+    ESPANIOL("es", "Español"),
+    INGLES("en", "Inglés"),
+    FRANCES("fr", "Francés"),
+    PORTUGUES("pt", "Portugués");
 
     private final String lenguajes;
     private final String descripcion;

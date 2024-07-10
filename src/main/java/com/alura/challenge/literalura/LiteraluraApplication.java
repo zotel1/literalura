@@ -8,22 +8,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.alura.challenge.literalura")
+@EnableJpaRepositories("com.alura.challenge.literalura.repository")
+@ComponentScan(basePackages = {"com.alura.Literalura"})
 public class LiteraluraApplication implements CommandLineRunner {
 
-	private final LibrosRepository librosRepository;
-	private final AutorRepository autorRepository;
-
-	public LiteraluraApplication(LibrosRepository librosRepository, AutorRepository autorRepository) {
-		this.librosRepository = librosRepository;
-		this.autorRepository = autorRepository;
-	}
-
+	@Autowired
+	private LibrosRepository librosRepository;
 
 	@Autowired
-	private LibrosRepository repository;
+	private AutorRepository autorRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LiteraluraApplication.class, args);
