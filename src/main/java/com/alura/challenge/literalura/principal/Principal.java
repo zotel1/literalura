@@ -119,7 +119,7 @@ public class Principal {
             });
         });
 
-        // Comparamos todo para ordenar los libros por el nombre del primer autor
+        // Comparador
         Comparator<Libros> comparador = Comparator.comparing(libro ->
                 libro.getAutores().isEmpty() ? "" : libro.getAutores().iterator().next().getNombre());
         libros.stream()
